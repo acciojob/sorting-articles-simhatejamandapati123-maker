@@ -1,16 +1,56 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-	<link rel="stylesheet" href="styles.css">
+    <title>Alphabetical Article Sorter</title>
 </head>
-
 <body>
-	<!-- the entire body must be written by student -->
-    <script type="text/javascript" src="./script.js">
-</script>
+
+    <h2>Alphabetical Article Sorter</h2>
+
+    <ul id="band"></ul>
+
+    <script>
+        const bands = [
+            'The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil',
+            'Norma Jean', 'The Bled', 'Say Anything', 'The Midway State',
+            'We Came as Romans', 'Counterparts', 'Oh, Sleeper',
+            'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'
+        ];
+
+        // Function to remove articles without using substring()
+        function stripArticle(name) {
+            let lower = name.toLowerCase();
+
+            if (lower.startsWith("the ")) {
+                return name.slice(4);   // remove "the "
+            }
+            if (lower.startsWith("a ")) {
+                return name.slice(2);   // remove "a "
+            }
+            if (lower.startsWith("an ")) {
+                return name.slice(3);   // remove "an "
+            }
+
+            return name; // return original if no article found
+        }
+
+        // Alternative sorting using localeCompare
+       const sortedBands = bands.sort(function(a, b) {
+        if (stripArticle(a) > stripArticle(b)) {
+            return 1;
+        } else {
+            return -1;
+        }
+        });
+
+        // Display without using map()
+        let listItems = "";
+        for (let i = 0; i < sortedBands.length; i++) {
+            listItems += "<li>" + sortedBands[i] + "</li>";
+        }
+
+        document.getElementById("band").innerHTML = listItems;
+    </script>
 
 </body>
-
 </html>
