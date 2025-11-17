@@ -7,7 +7,7 @@
 
     <h2>Alphabetical Article Sorter</h2>
 
-    <ul id="band"></ul>
+    <ul id="bands"></ul>
 
     <script>
         const bands = [
@@ -17,39 +17,26 @@
             'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'
         ];
 
-        // Function to remove articles without using substring()
         function stripArticle(name) {
             let lower = name.toLowerCase();
 
-            if (lower.startsWith("the ")) {
-                return name.slice(4);   // remove "the "
-            }
-            if (lower.startsWith("a ")) {
-                return name.slice(2);   // remove "a "
-            }
-            if (lower.startsWith("an ")) {
-                return name.slice(3);   // remove "an "
-            }
+            if (lower.startsWith("the ")) return name.slice(4);
+            if (lower.startsWith("a ")) return name.slice(2);
+            if (lower.startsWith("an ")) return name.slice(3);
 
-            return name; // return original if no article found
+            return name;
         }
 
-        // Alternative sorting using localeCompare
-       const sortedBands = bands.sort(function(a, b) {
-        if (stripArticle(a) > stripArticle(b)) {
-            return 1;
-        } else {
-            return -1;
-        }
+        const sortedBands = bands.sort(function(a, b) {
+            return stripArticle(a).localeCompare(stripArticle(b));
         });
 
-        // Display without using map()
         let listItems = "";
         for (let i = 0; i < sortedBands.length; i++) {
             listItems += "<li>" + sortedBands[i] + "</li>";
         }
 
-        document.getElementById("band").innerHTML = listItems;
+        document.getElementById("bands").innerHTML = listItems;
     </script>
 
 </body>
